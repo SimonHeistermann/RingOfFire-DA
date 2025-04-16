@@ -1,0 +1,44 @@
+@import './../../../styles.sass'
+    
+section
+    min-height: 100vh
+    @include displayFlex()
+    width: 100%
+    background-image: url('/img/flames_background.png')
+    background-size: cover
+    background-position: bottom
+    background-repeat: no-repeat
+
+div
+    @include displayFlex()
+    height: 100vh
+    width: $standardWidth
+    background-image: url('/img/start_box.png')
+    background-position: center
+    background-size: contain
+    background-repeat: no-repeat
+    position: relative
+    overflow: hidden
+
+button
+    @include displayFlex()
+    position: absolute
+    bottom: 20px
+    padding: 18px 64px
+    background: #35101e
+    color: #f7c948
+    font-weight: bold
+    font-size: 36px
+    letter-spacing: 1.5px
+    text-align: center
+    border-radius: 12px
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4)
+    transition: transform 0.2s ease, background 0.2s ease
+
+    &:hover
+        background: #3d1a1a
+        transform: scale(1.05)
+
+    &:active
+        transform: scale(0.97)
+    

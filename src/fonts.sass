@@ -1,0 +1,44 @@
+$font-path: 'fonts/'
+$font-family-cinzel: 'Cinzel Decorative'
+
+@mixin font-face($weight, $filename)
+  @font-face 
+    font-display: swap
+    font-family: $font-family-cinzel
+    font-style: normal
+    font-weight: $weight
+    src: url('#{$font-path}#{$filename}.woff2') format('woff2')
+
+@include font-face(400, 'cinzel-decorative-v17-latin_latin-ext-regular')
+@include font-face(700, 'cinzel-decorative-v17-latin_latin-ext-700')
+@include font-face(900, 'cinzel-decorative-v17-latin_latin-ext-900')
+
+$font-path: 'fonts/'
+$font-family-raleway: 'Raleway'
+
+@mixin raleway-face($weight, $style: normal, $filename)
+  @font-face
+    font-display: swap
+    font-family: $font-family-raleway
+    font-style: $style
+    font-weight: $weight
+    src: url('#{$font-path}#{$filename}.woff2') format('woff2')
+
+@include raleway-face(100, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-100')
+@include raleway-face(100, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-100italic')
+@include raleway-face(200, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-200')
+@include raleway-face(200, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-200italic')
+@include raleway-face(300, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-300')
+@include raleway-face(300, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-300italic')
+@include raleway-face(400, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular')
+@include raleway-face(400, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-italic')
+@include raleway-face(500, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-500')
+@include raleway-face(500, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-500italic')
+@include raleway-face(600, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-600')
+@include raleway-face(600, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-600italic')
+@include raleway-face(700, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-700')
+@include raleway-face(700, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-700italic')
+@include raleway-face(800, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-800')
+@include raleway-face(800, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-800italic')
+@include raleway-face(900, normal, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-900')
+@include raleway-face(900, italic, 'raleway-v34-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-900italic')
