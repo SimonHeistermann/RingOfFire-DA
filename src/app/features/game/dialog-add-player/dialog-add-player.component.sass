@@ -1,0 +1,117 @@
+@use 'sass:map' as map;
+    
+*
+    font-family: 'Raleway', sans-serif !important
+
+$my-primary: (
+  500: #103721,
+  600: #0d2e1b,
+  700: #0a2416,
+  800: #061b11,
+  900: #03120b,
+  contrast: (
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+)
+
+$my-accent: (
+  300: #ffa57d,
+  400: #ff8754,
+  500: #ff6b35,
+  600: #e65f30,
+  700: #cc542a,
+  contrast: (
+    500: white,
+    600: white,
+    700: white
+  )
+)
+
+$my-warn: (
+  500: #ff6b35,
+  600: #ff6b35,
+  700: #e65a28,
+  contrast: (
+    500: white,
+    600: white,
+    700: white
+  )
+)
+
+$btn-padding: 0 16px
+$btn-border-radius: 28px
+$btn-font-size: 14px
+$btn-font-weight: 500
+$btn-height: 36px
+
+button
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  height: $btn-height
+  padding: $btn-padding
+  font-size: $btn-font-size
+  font-weight: $btn-font-weight
+  border-radius: $btn-border-radius
+  border: none
+  cursor: pointer
+  outline: none
+  transition: background-color 0.3s, transform 0.3s
+  
+  background-color: map.get($my-accent, 500) 
+  color: white
+  text-align: center
+  text-transform: uppercase
+  
+  &:hover 
+    background-color: map.get($my-accent, 600) 
+    transform: scale(1.05)
+  
+  
+  &:focus 
+    background-color: map.get($my-accent, 400) 
+  
+
+  &:active 
+    background-color: map.get($my-accent, 700) 
+
+.dialog__container
+  width: min(100%, 400px)
+  padding: 16px
+  background-color: #fff
+
+  &__title
+    font-size: 24px
+    font-weight: 600
+    color: map.get($my-primary, 500)
+
+  &__content
+    font-size: 16px
+    color: #333
+    margin-bottom: 20px
+
+    p
+      margin: 0
+      padding: 0
+      margin-bottom: 10px
+      font-size: 14px
+      color: #555
+
+    .mat-form-field
+      width: 100%
+
+  &__actions
+    display: flex
+    gap: 16px
+
+
+
+  
+
+
+
+

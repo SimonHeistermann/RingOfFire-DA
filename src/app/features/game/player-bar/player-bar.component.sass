@@ -1,4 +1,50 @@
-@import './../../../../styles.sass'
+@use './../../../../styles' as *;
+@use 'sass:map' as map;
+
+$my-primary: (
+  500: #103721,
+  600: #0d2e1b,
+  700: #0a2416,
+  800: #061b11,
+  900: #03120b,
+  contrast: (
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+)
+
+$my-accent: (
+  300: #ffa57d,
+  400: #ff8754,
+  500: #ff6b35,
+  600: #e65f30,
+  700: #cc542a,
+  contrast: (
+    500: white,
+    600: white,
+    700: white
+  )
+)
+
+$my-warn: (
+  500: #ff6b35,
+  600: #ff6b35,
+  700: #e65a28,
+  contrast: (
+    500: white,
+    600: white,
+    700: white
+  )
+)
+
+$btn-padding: 16px
+$btn-border-radius: 12px
+$btn-font-size: 14px
+$btn-font-weight: 500
+
     
 .player__bar
     position: absolute
@@ -6,10 +52,13 @@
     bottom: 0
     left: 0
     right: 0
-    padding: 10px 16px 4px 16px
+    padding: 10px 64px 4px 64px
     background-color: rgba(0, 30, 10, 0.85)
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5)
     z-index: 100
+    min-height: 156px
+    overflow-x: auto
+    overflow-y: visible
 
 .player__box
     @include displayFlex($g: 8px)
@@ -83,6 +132,37 @@
             border-left: 8px solid transparent
             border-right: 8px solid transparent
             border-top: 8px solid #FF6B35
+
+button
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  padding: $btn-padding
+  font-size: $btn-font-size
+  font-weight: $btn-font-weight
+  border-radius: $btn-border-radius
+  border: none
+  cursor: pointer
+  outline: none
+  transition: background-color 0.3s, transform 0.3s
+  
+  background-color: map.get($my-accent, 500) 
+  color: white
+  text-align: center
+  text-transform: uppercase
+  
+  &:hover 
+    background-color: map.get($my-accent, 600) 
+    transform: scale(1.05)
+  
+  
+  &:focus 
+    background-color: map.get($my-accent, 400) 
+  
+
+  &:active 
+    background-color: map.get($my-accent, 700) 
+  
 
 @media (max-width: 768px)
     .player__bar

@@ -2,11 +2,7 @@ import { Player } from '../../shared/models/player.model';
 
 
 export class Game {
-    public players: Player[]  = [
-        { id: 1, name: 'Max', profileImage: 'img/profile/1.webp', isActive: true },
-        { id: 2, name: 'Anna', profileImage: 'img/profile/2.png', isActive: false },
-        { id: 3, name: 'Tom', profileImage: 'img/profile/monkey.png', isActive: false },
-    ];
+    public players: Player[]  = [];
     public deck: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
@@ -33,4 +29,11 @@ export class Game {
         }
         return array;
     }
+
+    updateActivePlayer() {
+        this.players.forEach((player, index) => {
+          player.isActive = index === this.currentPlayer;
+        });
+      }
+      
 }

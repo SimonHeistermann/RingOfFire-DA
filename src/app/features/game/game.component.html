@@ -1,17 +1,20 @@
 <section>
-    <div class="field">
-        <div class="card__stack">
-            @for(count of [1, 2, 3, 4, 5]; track count; let index = $index) {
-                <img [src]="'img/cards/card_cover.png'" alt="Card" [ngStyle]="{ 'left.px': index * 15 }"/>
-            }
-            <img (click)="takeCard()" [ngClass]="{ 'animate__topcard': pickCardAnimation }" class="top__card" src="img/cards/card_cover.png" alt="Card">
-            @for(card of game.playedCards; track index; let index = $index) {
-                <img class="played__card" [src]="'img/cards/' + card" alt="Card">
-            }
-            @if(pickedCard && showPickedCard) {
-                <img (click)="takeCard()" class="picked__card animate__pickedcard" [src]="'img/cards/' + pickedCard" alt="Picked Card" />
-            }
+    <div class="wrapper">
+        <div class="field">
+            <div class="card__stack">
+                @for(count of [1, 2, 3, 4, 5]; track count; let index = $index) {
+                    <img [src]="'img/cards/card_cover.png'" alt="Card" [ngStyle]="{ 'left.px': index * 15 }"/>
+                }
+                <img (click)="takeCard()" [ngClass]="{ 'animate__topcard': pickCardAnimation }" class="top__card" src="img/cards/card_cover.png" alt="Card">
+                @for(card of game.playedCards; track index; let index = $index) {
+                    <img class="played__card" [src]="'img/cards/' + card" alt="Card">
+                }
+                @if(pickedCard && showPickedCard) {
+                    <img (click)="takeCard()" class="picked__card animate__pickedcard" [src]="'img/cards/' + pickedCard" alt="Picked Card" />
+                }
+            </div>
         </div>
+        <app-game-info></app-game-info>
     </div>
     <app-player-bar [game]="game"></app-player-bar>
 </section>
