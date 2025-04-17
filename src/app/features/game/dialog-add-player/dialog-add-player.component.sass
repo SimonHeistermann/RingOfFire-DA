@@ -79,6 +79,10 @@ button
   &:active 
     background-color: map.get($my-accent, 700) 
 
+  &:disabled
+    background-color: map.get($my-accent, 300) 
+    cursor: not-allowed
+
 .dialog__container
   width: min(100%, 400px)
   padding: 16px

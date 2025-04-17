@@ -2,23 +2,65 @@
     font-family: 'Raleway', sans-serif !important
     
 .card__info
-    z-index: 400
-    position: absolute
-    bottom: 0
-    left: 32px
-    display: flex
-    flex-direction: column
-    gap: 10px
-    padding: 16px
-    background-color: var(--card-bg)
-    border-radius: 8px
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
-    transition: transform 0.3s ease
-    &:hover
-        transform: scale(1.02)
+  z-index: 400
+  position: absolute
+  bottom: 16px
+  left: 32px
+  display: flex
+  flex-direction: column
+  width: 250px
+  min-height: 30vh
+  gap: 10px
+  padding: 96px 16px
+  background: linear-gradient(145deg, #2c1f1f, #3e2b2b)
+  color: #f7e8d0
+  border-radius: 12px
+  border: 2px solid rgba(255, 255, 255, 0.1)
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5)
+  font-size: 14px
+  letter-spacing: 0.5px
+  backdrop-filter: blur(4px)
+  transition: transform 0.3s ease, box-shadow 0.3s ease
+
+  &:hover
+    transform: scale(1.05)
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6)
+
 
 .title
     font-size: 24px
     font-weight: bold
-    color: var(--primary)
+    color: #ff6b35
     text-align: center
+
+.subtitle
+    font-size: 18px
+    font-weight: 600
+    color: white
+    text-align: center
+
+.description
+    font-size: 16px
+    font-weight: 400
+    color: var(--light)
+    text-align: center
+    line-height: 1.5
+    max-height: 100px
+    overflow-y: auto
+    padding-right: 8px
+    scrollbar-width: thin
+    scrollbar-color: var(--primary) var(--light)
+    
+    &::-webkit-scrollbar
+        width: 4px
+        height: 10px
+
+    &::-webkit-scrollbar-thumb
+        background-color: var(--primary)
+        border-radius: 2px
+        &:hover
+            background-color: var(--secondary)
+
+    &::-webkit-scrollbar-track
+        background-color: var(--light)
+        border-radius: 2px
