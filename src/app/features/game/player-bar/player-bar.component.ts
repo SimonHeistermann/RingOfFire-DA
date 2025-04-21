@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Player } from '../../../shared/models/player.model';
+import { FirestoreService } from '../../../services/firestore.service';
+import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc, query, orderBy, limit, where, DocumentReference } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-player-bar',
@@ -19,6 +21,7 @@ import { Player } from '../../../shared/models/player.model';
 })
 export class PlayerBarComponent {
   @Input()  game!: Game;
+  @Input() gameId!: string;
   readonly dialog = inject(MatDialog);
   allProfileImages = [
     'img/profile/1.webp',
@@ -29,7 +32,7 @@ export class PlayerBarComponent {
     'img/profile/winkboy.svg'
   ];
 
-  constructor() {}
+  constructor(private firestoreService: FirestoreService, private firestore: Firestore) {}
 
   openDialog(): void {
     if (this.game.players.length >= 6) return;
@@ -38,6 +41,7 @@ export class PlayerBarComponent {
       if (result !== undefined && result !== null && result !== '') {
         const newPlayer = this.createPlayerFromName(result);
         this.game.players.push(newPlayer);
+        this.firestoreService.updateGame(this.game, this.gameId);
       }
     });
   }

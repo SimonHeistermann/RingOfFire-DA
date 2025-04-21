@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirestoreService } from '../../services/firestore.service';
+import { Game } from '../../shared/models/game.model';
 
 @Component({
   selector: 'app-start-screen',
@@ -9,13 +11,20 @@ import { Router } from '@angular/router';
   styleUrl: './start-screen.component.sass'
 })
 export class StartScreenComponent {
+  game: Game = new Game();
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private firestoreService: FirestoreService) { 
 
   }
 
-  newGame() {
-    this.router.navigate(['/game']);
-    
+  async newGame() {
+    try {
+      this.firestoreService.game = this.game;
+      const docRef = await this.firestoreService.addGame(this.game);
+      this.router.navigate(['/game', docRef.id]);
+    } catch (error) {
+      console.error('Error creating game:', error);
+    }
   }
+  
 }

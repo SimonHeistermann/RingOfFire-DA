@@ -45,8 +45,7 @@ $btn-border-radius: 12px
 $btn-font-size: 14px
 $btn-font-weight: 500
 
-    
-.player__bar
+section
     position: absolute
     @include displayFlex($g: 32px)
     bottom: 0
@@ -57,8 +56,20 @@ $btn-font-weight: 500
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5)
     z-index: 100
     min-height: 156px
+    overflow-y: visible
+    
+.wrapper
+  width: $standardWidth
+  @include displayFlex($jc: flex-end, $g: 32px)
+
+.player__bar
+    @include displayFlex($jc: flex-end, $g: 32px)
+    background-color: transparent
+    z-index: 100
+    min-height: 156px
     overflow-x: auto
     overflow-y: visible
+    width: min(calc(100% - 262.5px), calc(1920px - 262.5px))
 
 .player__box
     @include displayFlex($g: 8px)

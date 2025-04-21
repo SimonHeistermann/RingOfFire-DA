@@ -6,6 +6,9 @@ export class Game {
     public deck: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
+    public pickCardAnimation: boolean = false;
+    public pickedCard: string | null = null;
+    public showPickedCard: boolean = false;
 
     constructor() {
         this.deck = this.generateDeck();

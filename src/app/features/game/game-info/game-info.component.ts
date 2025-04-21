@@ -73,7 +73,7 @@ export class GameInfoComponent implements OnChanges {
   @Input()card: string | null = null;
   @Input()game!: Game;
 
-  
+
   constructor() {}
 
   ngOnInit(): void {
@@ -87,10 +87,12 @@ export class GameInfoComponent implements OnChanges {
   }
   
   updateCardInfo() {
-    const rawCard = this.card!.split('_')[1];
-    const cardNumber = parseInt(rawCard.split('.')[0], 10);
-    this.title = this.cardAction[cardNumber - 1]?.title ?? '';
-    this.description = this.cardAction[cardNumber - 1]?.description ?? '';
+    setTimeout(() => {
+      const rawCard = this.card!.split('_')[1];
+      const cardNumber = parseInt(rawCard.split('.')[0], 10);
+      this.title = this.cardAction[cardNumber - 1]?.title ?? '';
+      this.description = this.cardAction[cardNumber - 1]?.description ?? '';
+    }, 500);
   }
   
   
