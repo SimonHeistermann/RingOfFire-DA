@@ -1,0 +1,109 @@
+.game__over__overlay
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: rgba(0, 0, 0, 0.8)
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 1000
+  animation: fadeIn 0.5s ease-in-out
+
+.game__over__dialog
+  background: rgba(37, 54, 43, 0.95)
+  border: 2px solid #e78452
+  border-radius: 12px
+  padding: 30px
+  max-width: 90%
+  width: 400px
+  text-align: center
+  box-shadow: 0 0 30px rgba(231, 132, 82, 0.4)
+  animation: scaleIn 0.5s ease-in-out
+  
+  h1
+    color: #e78452
+    font-size: 42px
+    margin-bottom: 16px
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4)
+  
+  p
+    color: #fff
+    font-size: 18px
+    margin-bottom: 30px
+    
+
+.restart__button
+  background: linear-gradient(45deg, #e78452, #ff9d70)
+  color: white
+  border: none
+  border-radius: 8px
+  padding: 14px 28px
+  font-size: 18px
+  font-weight: 600
+  cursor: pointer
+  transition: all 0.2s ease
+  box-shadow: 0 4px 12px rgba(231, 132, 82, 0.4)
+  
+  &:hover
+    transform: translateY(-3px)
+    box-shadow: 0 8px 20px rgba(231, 132, 82, 0.6)
+  
+  &:active
+    transform: translateY(0)
+    box-shadow: 0 2px 8px rgba(231, 132, 82, 0.3)
+
+
+@keyframes fadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes scaleIn
+  from
+    transform: scale(0.8)
+    opacity: 0
+  to
+    transform: scale(1)
+    opacity: 1
+
+
+@media (max-width: 480px)
+  .game__over__dialog
+    padding: 20px
+    
+    h1
+      font-size: 32px
+    
+    p
+      font-size: 16px
+    
+    .restart__button
+      padding: 12px 24px
+      font-size: 16px
+
+
+@media (max-height: 500px) and (orientation: landscape)
+  .game__over__dialog
+    display: flex
+    flex-direction: row
+    align-items: center
+    text-align: left
+    padding: 20px
+    max-width: 90%
+    width: auto
+    
+    h1
+      margin-right: 20px
+      margin-bottom: 0
+    
+    .content__wrapper
+      flex: 1
+      
+      p
+        margin-bottom: 15px
+      
+      .restart__button
+        margin-top: 10px

@@ -1,5 +1,5 @@
 import { CommonModule, AsyncPipe } from '@angular/common';
-import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Game } from '../../shared/models/game.model';
 import { PlayerBarComponent } from './player-bar/player-bar.component';
 import { GameInfoComponent } from './game-info/game-info.component';
@@ -9,10 +9,11 @@ import { Observable } from 'rxjs';
 import { doc as docRefDirect } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
+import { GameOverComponent } from './dialog-game-over/dialog-game-over.component';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, PlayerBarComponent, GameInfoComponent],
+  imports: [CommonModule, PlayerBarComponent, GameInfoComponent, GameOverComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.sass'
 })
@@ -23,7 +24,7 @@ export class GameComponent implements OnDestroy {
   window = window;
   gameOver: boolean = false;
 
-  constructor(private route: ActivatedRoute, public firestoreService: FirestoreService, private firestore: Firestore) {
+  constructor(private route: ActivatedRoute, public firestoreService: FirestoreService, private firestore: Firestore, private cdr: ChangeDetectorRef) {
     this.firestoreService.game = this.game;
     this.route.params.subscribe(params => { 
       if(params['id']) this.gameId = params['id'];
@@ -36,25 +37,20 @@ export class GameComponent implements OnDestroy {
     this.unsubGame();
   }
 
-  takeCard() {
+  takeCard(): void {
     if (this.firestoreService.game.pickCardAnimation || this.firestoreService.game.players.length <= 0) return;
     this.firestoreService.game.pickCardAnimation = true;
     this.takeCardFromDeck();
-    this.takeCardAnimation();
+    if(!this.gameOver)this.takeCardAnimation();
   }
 
   takeCardFromDeck() {
-    const game = this.firestoreService.game;
-    if (game.deck.length === 0) {
-      game.deck = game.generateDeck();
-      if (game.pickedCard) {
-        game.playedCards = [game.pickedCard];
-      } else {
-        game.playedCards = [];
-      }
+    if (this.firestoreService.game.deck.length == 0) {
+      this.gameOver = true;
+      return;
     }
-    game.pickedCard = game.deck.pop() || null;
-    this.firestoreService.updateGame(game, this.gameId);
+    this.firestoreService.game.pickedCard = this.firestoreService.game.deck.pop() || null;
+    this.firestoreService.updateGame(this.firestoreService.game, this.gameId);
   }
 
   takeCardAnimation() {
@@ -79,6 +75,25 @@ export class GameComponent implements OnDestroy {
     this.firestoreService.game.currentPlayer = (this.firestoreService.game.currentPlayer + 1) % this.firestoreService.game.players.length;
     this.firestoreService.game.updateActivePlayer();
   }
+
+  restartGame(): void {
+    const game = this.firestoreService.game;
+    this.resetGameState(game);
+    this.gameOver = false;
+    this.firestoreService.updateGame(game, this.gameId);
+  }
+  
+  private resetGameState(game: Game): void {
+    game.deck = game.generateDeck();
+    game.playedCards = [];
+    game.pickedCard = null;
+    game.showPickedCard = false;
+    game.pickCardAnimation = false;
+    game.players.forEach(player => player.isActive = false);
+    game.currentPlayer = 0;
+    game.updateActivePlayer();
+  }
+  
 
   
 

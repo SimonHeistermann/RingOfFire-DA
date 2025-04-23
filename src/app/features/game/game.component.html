@@ -17,6 +17,7 @@
         <app-game-info [card]="firestoreService.game.pickedCard" [game]="firestoreService.game"></app-game-info>
     </div>
     <app-player-bar [game]="firestoreService.game" [gameId]="gameId"></app-player-bar>
+    <app-game-over [gameOver]="gameOver" (restartGame)="restartGame()"></app-game-over>
 </section>
 
 
