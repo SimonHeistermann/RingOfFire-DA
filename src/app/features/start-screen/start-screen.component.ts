@@ -13,6 +13,19 @@ import { Firestore } from '@angular/fire/firestore';
 })
 export class StartScreenComponent {
   game: Game = new Game();
+  imagePaths = [
+    'img/flames_background.png',
+    'img/game_background.png',
+    'img/start_box_mobile.png',
+    'img/start_box.png',
+    'img/profile/actor_profile.png',
+    'img/profile/alien_profile.png',
+    'img/profile/comic_guy_profile.png',
+    'img/profile/men_profile.png',
+    'img/profile/kitten_profile.png',
+    'img/profile/woman_profile.png',
+    'img/cards/card_cover.png',
+  ];
 
   constructor(private router: Router, private firestoreService: FirestoreService, private firestore: Firestore) {}
 
@@ -24,6 +37,13 @@ export class StartScreenComponent {
     } catch (error) {
       console.error('Error creating game:', error);
     }
+  }
+
+  preloadImages(): void {
+    this.imagePaths.forEach((path) => {
+      const img = new Image();
+      img.src = path;
+    });
   }
   
 }
