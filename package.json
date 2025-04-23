@@ -24,7 +24,6 @@
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@tanstack-query-firebase/angular": "^1.0.0",
     "@tanstack/angular-query-experimental": "5.66.4",
-    "hammerjs": "^2.0.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

@@ -41,9 +41,17 @@ export class GameComponent implements OnDestroy {
     if (this.firestoreService.game.pickCardAnimation || this.firestoreService.game.players.length <= 0) return;
     this.firestoreService.game.pickCardAnimation = true;
     this.takeCardFromDeck();
-    if(!this.gameOver)this.takeCardAnimation();
+    if(!this.gameOver) {
+      this.preloadNextCard();
+      this.takeCardAnimation();
+    }
   }
 
+  preloadNextCard(): void {
+    const img = new Image();
+    img.src = 'img/cards/'  + this.firestoreService.game.deck[this.firestoreService.game.deck.length - 1];
+  }
+  
   takeCardFromDeck() {
     if (this.firestoreService.game.deck.length == 0) {
       this.gameOver = true;
