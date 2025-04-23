@@ -21,6 +21,7 @@ export class GameComponent implements OnDestroy {
   gameId: string = '';
   unsubGame!: () => void;
   window = window;
+  gameOver: boolean = false;
 
   constructor(private route: ActivatedRoute, public firestoreService: FirestoreService, private firestore: Firestore) {
     this.firestoreService.game = this.game;

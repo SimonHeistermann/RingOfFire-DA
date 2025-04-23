@@ -1,0 +1,271 @@
+@use './../../../../styles' as *;
+
+*
+    font-family: 'Raleway', sans-serif
+
+.player__dialog
+  max-height: 100vh
+  display: flex
+  flex-direction: column
+  position: relative
+  width: 100%
+  max-width: 480px
+  background: rgba(20, 36, 33, 0.95)
+  border-radius: 12px
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4)
+  border: 2px solid #e78452
+  color: #fff
+  backdrop-filter: blur(5px)
+  overflow: hidden
+
+.dialog__header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 16px 20px
+  background: linear-gradient(45deg, #793718, #e78452)
+  
+  h2
+    margin: 0
+    font-size: 24px
+    font-weight: 600
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3)
+  
+  .close__button
+    background: transparent
+    border: unset !important
+    color: white
+    font-size: 28px
+    cursor: pointer
+    width: 36px
+    height: 36px
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 50%
+    transition: background-color 0.2s
+    
+    &:hover
+      background-color: rgba(255, 255, 255, 0.2)
+
+.dialog__content
+  padding: 24px
+  width: 100%
+  max-height: calc(100vh - 160px) 
+  overflow-y: auto
+
+.name__input
+  margin-bottom: 24px
+  
+  label
+    display: block
+    margin-bottom: 8px
+    font-size: 16px
+    color: #e78452
+  
+  input
+    width: 100%
+    padding: 12px 16px
+    background: rgba(255, 255, 255, 0.1)
+    border: 1px solid #e78452
+    border-radius: 8px
+    color: white
+    font-size: 16px
+    transition: border-color 0.3s, box-shadow 0.3s
+    
+    &:focus
+      outline: none
+      border-color: #ff9d70
+      box-shadow: 0 0 0 2px rgba(231, 132, 82, 0.4)
+    
+    &::placeholder
+      color: rgba(255, 255, 255, 0.5)
+
+.avatar__section
+  h3
+    color: #e78452
+    margin-bottom: 16px
+    font-size: 18px
+
+.avatar__grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 16px
+  
+  @media screen and (max-width: 400px)
+    grid-template-columns: repeat(2, 1fr)
+
+.avatar__option
+  aspect-ratio: 1
+  border-radius: 8px
+  overflow: hidden
+  cursor: pointer
+  border: 2px solid transparent
+  transition: transform 0.2s, border-color 0.2s
+  
+  &:hover
+    transform: scale(1.05)
+  
+  &.selected
+    border-color: #e78452
+    box-shadow: 0 0 12px rgba(231, 132, 82, 0.6)
+  
+  img
+    width: 100%
+    height: 100%
+    object-fit: cover
+    object-position: top
+
+.dialog__actions
+  display: flex
+  justify-content: flex-end
+  gap: 16px
+  padding: 16px 24px
+  border-top: 1px solid rgba(231, 132, 82, 0.3)
+  
+  button
+    padding: 12px 24px
+    border-radius: 8px
+    font-weight: 600
+    cursor: pointer
+    transition: all 0.2s
+  
+  .cancel__btn
+    background: rgba(255, 255, 255, 0.1)
+    color: #fff
+    border: 1px solid rgba(255, 255, 255, 0.3)
+    
+    &:hover
+      background: rgba(255, 255, 255, 0.2)
+  
+  .save__btn
+    background: linear-gradient(to right, #e78452, #ff9d70)
+    color: white
+    border: none
+    
+    &:hover
+      transform: translateY(-2px)
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
+    
+    &:disabled
+      opacity: 0.5
+      cursor: not-allowed
+      transform: none
+      box-shadow: none
+
+
+@media screen and (max-width: 480px)
+    .player__dialog
+        max-width: 100%
+        border-radius: 8px
+        margin: 0 8px
+        border: unset
+  
+    .dialog__header h2
+        font-size: 20px
+  
+    .dialog__actions
+        padding: 12px 16px
+    
+    button
+        padding: 10px 16px
+        font-size: 14px
+
+    .dialog__content
+        padding: 8px
+        max-height: calc(100vh - 140px)
+        overflow-y: auto
+        -webkit-overflow-scrolling: touch
+
+@media screen and (max-width: 400px)
+  .player__dialog
+    max-width: 100%
+    margin: 0 4px
+    border-radius: 6px
+
+  .dialog__header
+    padding: 12px 12px
+
+    h2
+      font-size: 18px
+
+    .close__button
+      font-size: 24px
+      width: 32px
+      height: 32px
+
+  .dialog__content
+    padding: 8px 12px
+
+  .name__input
+    label
+      font-size: 14px
+
+    input
+      padding: 10px 14px
+      font-size: 14px
+
+  .avatar__section
+    h3
+      font-size: 16px
+      margin-bottom: 12px
+
+  .avatar__grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 12px
+
+  .avatar__option
+    border-radius: 6px
+
+  .dialog__actions
+    flex-direction: column
+    gap: 8px
+    padding: 12px
+
+    button
+      width: 100%
+      font-size: 14px
+      padding: 10px 14px
+
+
+
+@media screen and (max-height: 500px) and (orientation: landscape)
+  .player__dialog
+    display: flex
+    flex-direction: row
+    max-width: 90%
+    max-height: 90vh
+  
+  .dialog__header
+    writing-mode: vertical-rl
+    transform: rotate(180deg)
+    padding: 16px 8px
+    
+    h2
+      transform: rotate(180deg)
+  
+  .dialog__content
+    flex: 1
+    display: flex
+    padding: 16px
+    
+    .name__input
+      flex: 0 0 40%
+      margin-bottom: 0
+      margin-right: 16px
+    
+    .avatar__section
+      flex: 0 0 60%
+
+  .avatar__grid
+    padding: 16px
+    overflow-y: auto
+    max-height: 100vh
+    padding-bottom: 96px
+
+  .dialog__actions
+    position: absolute
+    bottom: 0
+    right: 0
+    width: calc(100% - 52px)
+    background: rgba(20, 36, 33, 0.9)

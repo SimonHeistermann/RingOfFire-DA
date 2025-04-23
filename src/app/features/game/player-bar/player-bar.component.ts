@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { Player } from '../../../shared/models/player.model';
 import { FirestoreService } from '../../../services/firestore.service';
 import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc, query, orderBy, limit, where, DocumentReference } from '@angular/fire/firestore';
+import { DialogEditPlayerComponent } from '../dialog-edit-player/dialog-edit-player.component';
 
 @Component({
   selector: 'app-player-bar',
@@ -24,13 +25,14 @@ export class PlayerBarComponent {
   @Input() gameId!: string;
   readonly dialog = inject(MatDialog);
   allProfileImages = [
-    'img/profile/1.webp',
-    'img/profile/2.png',
-    'img/profile/monkey.png',
-    'img/profile/pinguin.svg',
-    'img/profile/serious-woman.svg',
-    'img/profile/winkboy.svg'
+    'img/profile/actor_profile.png',
+    'img/profile/alien_profile.png',
+    'img/profile/comic_guy_profile.png',
+    'img/profile/men_profile.png',
+    'img/profile/kitten_profile.png',
+    'img/profile/woman_profile.png',
   ];
+  clickTimeout: any = null;
 
   constructor(private firestoreService: FirestoreService, private firestore: Firestore) {}
 
@@ -40,6 +42,38 @@ export class PlayerBarComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result !== null && result !== '') {
         this.addPlayer(result);
+      }
+    });
+  }
+
+
+  editPlayerSafely(playerId: number): void {
+    if (this.clickTimeout) {
+      clearTimeout(this.clickTimeout);
+      this.clickTimeout = null;
+    }
+    this.clickTimeout = setTimeout(() => {
+      this.editPlayer(playerId);
+      this.clickTimeout = null;
+    }, 250);
+  }
+
+  editPlayer(playerId: number): void {
+    const player = this.game.players.find(p => p.id === playerId);
+    if (player) {
+      this.openEditPlayerDialog(player);
+    }
+  }
+  
+  openEditPlayerDialog(player: Player): void {
+    const dialogRef = this.dialog.open(DialogEditPlayerComponent, {
+      data: player
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        player.name = result.name;
+        player.profileImage = result.profileImage;
+        this.firestoreService.updateGame(this.game, this.gameId);
       }
     });
   }
@@ -80,11 +114,19 @@ export class PlayerBarComponent {
   }
 
   removePlayer(playerToRemove: Player): void {
+    const wasActive = playerToRemove.isActive;
     this.game.players = this.game.players.filter(player => player !== playerToRemove);
+    if (wasActive && this.game.players.length > 0) {
+      this.nextPlayer();
+    }
     this.firestoreService.updateGame(this.game, this.gameId);
   }
 
-;
+  nextPlayer() {
+    this.firestoreService.game.currentPlayer = (this.firestoreService.game.currentPlayer + 1) % this.firestoreService.game.players.length;
+    this.firestoreService.game.updateActivePlayer();
+  }
+  
 
   
 }

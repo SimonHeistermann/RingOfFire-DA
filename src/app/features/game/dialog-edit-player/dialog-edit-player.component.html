@@ -1,0 +1,45 @@
+<div class="player__dialog">
+    <div class="dialog__header">
+      <h2>Edit Player</h2>
+      <button class="close__button" (click)="cancel()">×</button>
+    </div>
+    
+    <div class="dialog__content">
+      <div class="name__input">
+        <label for="playerName">Playername</label>
+        <input 
+          type="text" 
+          id="playerName" 
+          [(ngModel)]="playerName" 
+          placeholder="Enter your name..."
+          maxlength="12"
+        >
+      </div>
+      
+      <div class="avatar__section">
+        <h3>Choose your avatar</h3>
+        <div class="avatar__grid">
+            @for (avatar of profileImages; track i; let i = $index) {
+                <div
+                  class="avatar__option"
+                  [class.selected]="selectedProfileImage === avatar"
+                  (click)="selectProfileImage(avatar)"
+                >
+                  <img [src]="avatar" alt="Avatar {{ i + 1 }}">
+                </div>
+              }
+        </div>
+      </div>
+    </div>
+    
+    <div class="dialog__actions">
+      <button class="cancel__btn" (click)="cancel()">Cancel</button>
+      <button 
+        class="save__btn" 
+        [disabled]="!playerName.trim()" 
+        (click)="savePlayer()"
+      >
+        Save
+      </button>
+    </div>
+</div>

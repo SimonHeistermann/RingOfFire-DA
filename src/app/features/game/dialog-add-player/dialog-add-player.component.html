@@ -4,7 +4,7 @@
       <p>Please enter the name of a player?</p>
       <mat-form-field class="mat-form-field">
         <mat-label class="mat-label">Your name</mat-label>
-        <input matInput [(ngModel)]="name" (keydown.enter)="addPlayer(name)"/>
+        <input placeholder="Enter your name..." type="text"  matInput  maxlength="12" [(ngModel)]="name" (keydown.enter)="addPlayer(name)"/>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions class="dialog__container__actions">

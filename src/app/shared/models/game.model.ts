@@ -37,6 +37,6 @@ export class Game {
         this.players.forEach((player, index) => {
           player.isActive = index === this.currentPlayer;
         });
-      }
+    }
       
 }
