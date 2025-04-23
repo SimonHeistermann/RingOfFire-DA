@@ -3,7 +3,7 @@
         <div class="field">
             <div class="card__stack">
                 @for(count of [1, 2, 3, 4, 5]; track count; let index = $index) {
-                    <img [src]="'img/cards/card_cover.png'" alt="Card" [ngStyle]="{ 'left.px': index * 15 }"/>
+                    <img [src]="'img/cards/card_cover.png'" alt="Card" [ngStyle]="{ 'left.px': index * (window.innerWidth > 768 ? 15 : 10) }"/>
                 }
                 <img (click)="takeCard()" [ngClass]="{ 'animate__topcard': firestoreService.game.pickCardAnimation }" class="top__card" src="img/cards/card_cover.png" alt="Card">
                 @for(card of firestoreService.game.playedCards; track index; let index = $index) {

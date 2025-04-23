@@ -35,15 +35,20 @@ export class PlayerBarComponent {
   constructor(private firestoreService: FirestoreService, private firestore: Firestore) {}
 
   openDialog(): void {
-    if (this.game.players.length >= 6) return;
+    if (this.game.players.length >= 10) return;
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result !== null && result !== '') {
-        const newPlayer = this.createPlayerFromName(result);
-        this.game.players.push(newPlayer);
-        this.firestoreService.updateGame(this.game, this.gameId);
+        this.addPlayer(result);
       }
     });
+  }
+
+  addPlayer(name: string): void {
+    if (this.game.players.length >= 10) return;
+    const newPlayer = this.createPlayerFromName(name);
+    this.game.players.push(newPlayer);
+    this.firestoreService.updateGame(this.game, this.gameId);
   }
 
   private createPlayerFromName(name: string): Player {
@@ -76,7 +81,10 @@ export class PlayerBarComponent {
 
   removePlayer(playerToRemove: Player): void {
     this.game.players = this.game.players.filter(player => player !== playerToRemove);
+    this.firestoreService.updateGame(this.game, this.gameId);
   }
-  
+
+;
+
   
 }

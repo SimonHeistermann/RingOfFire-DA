@@ -59,8 +59,8 @@ section
     overflow-y: visible
     
 .wrapper
-  width: $standardWidth
-  @include displayFlex($jc: flex-end, $g: 32px)
+    width: $standardWidth
+    @include displayFlex($jc: flex-end, $g: 32px)
 
 .player__bar
     @include displayFlex($jc: flex-end, $g: 32px)
@@ -69,7 +69,29 @@ section
     min-height: 156px
     overflow-x: auto
     overflow-y: visible
-    width: min(calc(100% - 262.5px), calc(1920px - 262.5px))
+    width: min(calc(100% - clamp(220px, 25vw, 300px)), calc(1920px - clamp(220px, 25vw, 300px)))
+    position: relative
+
+    @media (max-width: 768px)
+        width: min(calc(100% - clamp(180px, 40vw, 250px)), calc(1920px - clamp(180px, 40vw, 250px)))
+
+    @media (max-width: 576px)
+        width: min(calc(100% - clamp(150px, 50vw, 200px)), calc(1920px - clamp(150px, 50vw, 200px)))
+
+    @media (max-height: 500px) and (orientation: landscape)
+        width: min(calc(100% - clamp(150px, 25vw, 220px)), calc(1920px - clamp(150px, 25vw, 220px)))
+        
+
+.players__container
+    @include displayFlex($jc: flex-start, $g: 32px)
+    background-color: transparent
+    z-index: 100
+    min-height: 156px
+    overflow-x: auto
+    overflow-y: visible
+    width: 100%
+    flex-wrap: nowrap
+    padding-bottom: 8px
 
 .player__box
     @include displayFlex($g: 8px)
@@ -79,6 +101,7 @@ section
     padding: 4px
     border-radius: 10px
     position: relative
+    flex: 0 0 auto
 
     &::before
         content: ''
@@ -176,18 +199,28 @@ button
   
 
 @media (max-width: 768px)
+    section
+        padding: 0px 16px 4px 16px
+
     .player__bar
-        padding: 10px 5px
-        gap: 10px
-        overflow-x: auto
-        justify-content: flex-start
+      gap: 16px
+      align-items: center
+
+    .players__container
+        gap: 16px
+        align-items: flex-end
 
     .player__box
-        width: 60px
+      width: 80px
+      .profile__image
+          width: 60px
+          height: 60px
 
-    .profile__image
-        width: 45px
-        height: 45px
+      &.active
+          .profile__image
+              border: 2px solid #FF6B35
 
     .player__name
         font-size: 12px
+
+    

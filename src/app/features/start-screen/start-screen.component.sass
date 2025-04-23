@@ -1,26 +1,28 @@
-@use './../../../styles' as *;
-    
+@use './../../../styles' as *
+
 section
     min-height: 100vh
     @include displayFlex()
     width: 100%
-    background-image: url('./../../../../public/img/flames_background.png')
-    background-size: cover
-    background-position: bottom
-    background-repeat: no-repeat
+    background:
+        image: url('./../../../../public/img/flames_background.png')
+        size: cover
+        position: bottom
+        repeat: no-repeat
 
 div
     @include displayFlex()
     height: 100vh
     width: $standardWidth
-    background-image: url('./../../../../public/img/start_box.png')
-    background-position: center
-    background-size: contain
-    background-repeat: no-repeat
+    background:
+        image: url('./../../../../public/img/start_box.png')
+        position: center
+        size: cover
+        repeat: no-repeat
     position: relative
     overflow: hidden
 
-h1 
+h1
     font-family: 'Cinzel', serif
 
 button
@@ -37,11 +39,39 @@ button
     border-radius: 12px
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4)
     transition: transform 0.2s ease, background 0.2s ease
-
+  
+    @media (max-width: 480px)
+        font-size: clamp(16px, 5vw, 24px)
+        padding: clamp(8px, 2vw, 14px) clamp(20px, 6vw, 40px)
+  
+    @media (max-height: 500px) and (orientation: landscape)
+        bottom: clamp(8px, 2vh, 15px)
+        padding: clamp(6px, 1.5vh, 12px) clamp(20px, 4vw, 40px)
+        font-size: clamp(14px, 2.5vh, 24px)
+  
     &:hover
         background: #3d1a1a
         transform: scale(1.05)
-
+    
+        @media (max-width: 480px)
+            transform: scale(1.03)
+  
     &:active
         transform: scale(0.97)
-    
+
+@media (max-width: 600px)
+    div
+        background-size: 220%
+        background-image: url('./../../../../public/img/start_box_mobile.png')
+  
+    button
+        bottom: clamp(10px, 3vh, 20px)
+        padding: clamp(12px, 2vw, 18px) clamp(30px, 5vw, 64px)
+        font-size: clamp(18px, 3vw, 36px)
+        letter-spacing: clamp(0.8px, 0.15vw, 1.5px)
+        border-radius: clamp(6px, 1vw, 12px)
+
+@media (max-height: 500px) and (orientation: landscape)
+    div
+        background-size: cover
+        background-image: url('./../../../../public/img/start_box_mobile.png')  

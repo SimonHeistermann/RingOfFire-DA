@@ -2,65 +2,98 @@
     font-family: 'Raleway', sans-serif !important
     
 .card__info
-  z-index: 400
-  position: absolute
-  bottom: 16px
-  left: 32px
-  display: flex
-  flex-direction: column
-  width: 250px
-  min-height: 30vh
-  gap: 10px
-  padding: 96px 16px
-  background: linear-gradient(145deg, #2c1f1f, #3e2b2b)
-  color: #f7e8d0
-  border-radius: 12px
-  border: 2px solid rgba(255, 255, 255, 0.1)
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5)
-  font-size: 14px
-  letter-spacing: 0.5px
-  backdrop-filter: blur(4px)
-  transition: transform 0.3s ease, box-shadow 0.3s ease
+    z-index: 400
+    position: absolute
+    bottom: clamp(16px, 3vh, 24px)
+    left: clamp(16px, 3vw, 32px)
+    display: flex
+    flex-direction: column
+    width: clamp(220px, 25vw, 300px)
+    min-height: clamp(150px, 25vh, 280px)
+    gap: 10px
+    padding: clamp(16px, 4vh, 32px) clamp(10px, 2vw, 16px)
+    background: linear-gradient(145deg, #2c1f1f, #3e2b2b)
+    color: #f7e8d0
+    border-radius: 12px
+    border: 2px solid rgba(255, 255, 255, 0.1)
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5)
+    font-size: clamp(12px, 1.5vw, 14px)
+    letter-spacing: 0.5px
+    backdrop-filter: blur(4px)
+    transition: transform 0.3s ease, box-shadow 0.3s ease
 
-  &:hover
-    transform: scale(1.05)
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6)
+    &:hover
+        transform: scale(1.02)
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6)
 
+
+    @media (max-width: 768px)
+        min-height: 130px
+        width: clamp(180px, 40vw, 250px)
+
+    @media (max-width: 576px)
+        width: clamp(150px, 50vw, 200px)
+        bottom: 12px
+        left: 12px
+
+    @media (max-height: 500px) and (orientation: landscape)
+        bottom: 10px
+        left: 10px
+        min-height: 100px
+        width: clamp(150px, 25vw, 220px)
+        padding: 12px 10px
 
 .title
-    font-size: 24px
+    font-size: clamp(18px, 2.5vw, 24px)
     font-weight: bold
     color: #ff6b35
     text-align: center
+    margin-bottom: clamp(4px, 1vh, 8px)
 
 .subtitle
-    font-size: 18px
+    font-size: clamp(14px, 2vw, 18px)
     font-weight: 600
     color: white
     text-align: center
+    margin-bottom: clamp(6px, 1.5vh, 12px)
 
 .description
-    font-size: 16px
+    font-size: clamp(12px, 1.8vw, 16px)
     font-weight: 400
-    color: var(--light)
+    color: var(--light, #f7e8d0)
     text-align: center
     line-height: 1.5
-    max-height: 100px
+    max-height: clamp(60px, 15vh, 100px)
     overflow-y: auto
     padding-right: 8px
     scrollbar-width: thin
-    scrollbar-color: var(--primary) var(--light)
-    
+    scrollbar-color: var(--primary, #ff6b35) var(--light, #f7e8d0)
+
     &::-webkit-scrollbar
-        width: 4px
-        height: 10px
+        width: 3px
+        height: 8px
 
     &::-webkit-scrollbar-thumb
-        background-color: var(--primary)
+        background-color: var(--primary, #ff6b35)
         border-radius: 2px
         &:hover
-            background-color: var(--secondary)
+            background-color: var(--secondary, #e65f30)
 
     &::-webkit-scrollbar-track
-        background-color: var(--light)
+        background-color: rgba(247, 232, 208, 0.1)
         border-radius: 2px
+
+    @media (max-height: 500px) and (orientation: landscape)
+        max-height: 50px
+        font-size: clamp(10px, 1.5vw, 14px)
+
+@keyframes fadeIn
+    from
+        opacity: 0
+        transform: translateY(10px)
+    to
+        opacity: 1
+        transform: translateY(0)
+
+.card__info
+    animation: fadeIn 0.4s ease-out
