@@ -78,7 +78,7 @@ section
     @media (max-width: 576px)
         width: min(calc(100% - clamp(150px, 50vw, 200px)), calc(1920px - clamp(150px, 50vw, 200px)))
 
-    @media (max-height: 500px) and (orientation: landscape)
+    @media (max-height: 576px) and (orientation: landscape)
         width: min(calc(100% - clamp(150px, 25vw, 220px)), calc(1920px - clamp(150px, 25vw, 220px)))
         
 
@@ -102,6 +102,10 @@ section
     border-radius: 10px
     position: relative
     flex: 0 0 auto
+    touch-action: manipulation
+
+    &:active
+      transform: scale(0.98)
 
     &::before
         content: ''
@@ -222,5 +226,12 @@ button
 
     .player__name
         font-size: 12px
+
+@media screen and (max-width: 400px)
+    button  
+      flex-shrink: 1
+      padding: 8px
+  
+
 
     

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
 import { Game } from '../../shared/models/game.model';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-start-screen',
@@ -13,9 +14,7 @@ import { Game } from '../../shared/models/game.model';
 export class StartScreenComponent {
   game: Game = new Game();
 
-  constructor(private router: Router, private firestoreService: FirestoreService) { 
-
-  }
+  constructor(private router: Router, private firestoreService: FirestoreService, private firestore: Firestore) {}
 
   async newGame() {
     try {

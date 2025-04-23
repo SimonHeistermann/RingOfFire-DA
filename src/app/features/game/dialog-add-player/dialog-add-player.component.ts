@@ -1,4 +1,5 @@
 import { Component, Inject, inject } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -30,7 +31,7 @@ export class DialogAddPlayerComponent {
   readonly dialogRef = inject(MatDialogRef<DialogAddPlayerComponent>);
   name: string = '';
 
-  constructor() {}
+  constructor(private firestore: Firestore) {}
 
   onNoClick(): void {
     this.dialogRef.close();

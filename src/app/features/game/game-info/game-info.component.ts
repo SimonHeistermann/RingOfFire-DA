@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges } from '@a
 import { MatCardModule } from '@angular/material/card';
 import { Input } from '@angular/core';
 import { Game } from '../../../shared/models/game.model';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-game-info',
@@ -74,7 +75,7 @@ export class GameInfoComponent implements OnChanges {
   @Input()game!: Game;
 
 
-  constructor() {}
+  constructor(private firestore: Firestore) {}
 
   ngOnInit(): void {
     if (this.card) this.updateCardInfo();

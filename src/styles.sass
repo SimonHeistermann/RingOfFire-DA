@@ -55,4 +55,18 @@ button
   --dark: #1E1E1E
   --light: #F5F5F5
   --card-bg: #FFFFFF
+  --final-transform: translate(200px, -30vh) rotate(30deg)
+
+@media screen and (max-width: 1000px)
+  :root
+    --final-transform: translate(300px) rotate(30deg)
+
+@media screen and (max-width: 768px)
+  :root
+    --final-transform: translate(0px, -30vh) rotate(30deg)
+
+@media screen and (max-height: 576px) and (orientation: landscape)
+  :root
+    --final-transform: translate(300px) rotate(30deg)
+
 

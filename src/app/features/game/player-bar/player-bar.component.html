@@ -3,7 +3,7 @@
     <div class="player__bar">
       <div class="players__container">
         @for (player of game.players; track player.id) {
-          <div (dblclick)="removePlayer(player)" class="player__box" [class.active]="player.isActive">
+          <div (dblclick)="removePlayer(player)" (longpress)="removePlayer(player)" class="player__box" [class.active]="player.isActive">
             <div class="profile__image">
               <img [src]="player.profileImage" alt="{{ player.name }}">
             </div>
