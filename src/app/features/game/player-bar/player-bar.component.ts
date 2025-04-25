@@ -12,18 +12,45 @@ import { FirestoreService } from '../../../services/firestore.service';
 import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc, query, orderBy, limit, where, DocumentReference } from '@angular/fire/firestore';
 import { DialogEditPlayerComponent } from '../dialog-edit-player/dialog-edit-player.component';
 
+/**
+ * A component that manages and displays player-related actions in the game.
+ * 
+ * Provides UI and logic for adding, editing, and removing players,
+ * as well as assigning unique profile images and managing active players.
+ *
+ * @component
+ */
 @Component({
   selector: 'app-player-bar',
-  imports: [CommonModule, MatButtonModule, MatIconModule, 
-    MatDividerModule, MatDialogModule
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    MatDialogModule
   ],
   templateUrl: './player-bar.component.html',
   styleUrl: './player-bar.component.sass'
 })
 export class PlayerBarComponent {
-  @Input()  game!: Game;
+  /**
+   * The current game object including player data and state.
+   */
+  @Input() game!: Game;
+
+  /**
+   * The ID of the current game, used for database updates.
+   */
   @Input() gameId!: string;
+
+  /**
+   * Instance of MatDialog used to open dialogs.
+   */
   readonly dialog = inject(MatDialog);
+
+  /**
+   * A list of available profile images to be randomly assigned to players.
+   */
   allProfileImages = [
     'img/profile/actor_profile.png',
     'img/profile/alien_profile.png',
@@ -32,10 +59,24 @@ export class PlayerBarComponent {
     'img/profile/kitten_profile.png',
     'img/profile/woman_profile.png',
   ];
+
+  /**
+   * Timeout handler for delayed click detection (used to debounce editPlayer calls).
+   */
   clickTimeout: any = null;
 
+  /**
+   * Constructs the component and injects required services.
+   * 
+   * @param firestoreService - Custom service for updating game state in Firestore.
+   * @param firestore - Firestore instance for potential direct operations.
+   */
   constructor(private firestoreService: FirestoreService, private firestore: Firestore) {}
 
+  /**
+   * Opens a dialog to add a new player if the player limit (10) is not reached.
+   * Adds the player to the game if the dialog returns a valid name.
+   */
   openDialog(): void {
     if (this.game.players.length >= 10) return;
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
@@ -46,7 +87,11 @@ export class PlayerBarComponent {
     });
   }
 
-
+  /**
+   * Delays execution of player editing to avoid accidental double-triggering.
+   * 
+   * @param playerId - ID of the player to edit.
+   */
   editPlayerSafely(playerId: number): void {
     if (this.clickTimeout) {
       clearTimeout(this.clickTimeout);
@@ -58,13 +103,23 @@ export class PlayerBarComponent {
     }, 250);
   }
 
+  /**
+   * Opens the edit dialog for the specified player if found.
+   *
+   * @param playerId - ID of the player to edit.
+   */
   editPlayer(playerId: number): void {
     const player = this.game.players.find(p => p.id === playerId);
     if (player) {
       this.openEditPlayerDialog(player);
     }
   }
-  
+
+  /**
+   * Opens the edit dialog and updates the player's name and image if changes are made.
+   *
+   * @param player - The player to edit.
+   */
   openEditPlayerDialog(player: Player): void {
     const dialogRef = this.dialog.open(DialogEditPlayerComponent, {
       data: player
@@ -78,6 +133,11 @@ export class PlayerBarComponent {
     });
   }
 
+  /**
+   * Adds a new player to the game with a name and assigned profile image.
+   *
+   * @param name - The name of the player to add.
+   */
   addPlayer(name: string): void {
     if (this.game.players.length >= 10) return;
     const newPlayer = this.createPlayerFromName(name);
@@ -85,6 +145,12 @@ export class PlayerBarComponent {
     this.firestoreService.updateGame(this.game, this.gameId);
   }
 
+  /**
+   * Creates a new player object from the provided name.
+   *
+   * @param name - Name of the player.
+   * @returns The created Player object.
+   */
   private createPlayerFromName(name: string): Player {
     return {
       id: this.generateNextPlayerId(),
@@ -92,8 +158,13 @@ export class PlayerBarComponent {
       profileImage: this.getRandomAvailableProfileImage(),
       isActive: this.shouldBeActive()
     };
-  }  
+  }
 
+  /**
+   * Returns a random profile image that hasn’t already been used by another player.
+   *
+   * @returns A profile image path.
+   */
   private getRandomAvailableProfileImage(): string {
     const usedImages = this.game.players.map(player => player.profileImage);
     const availableImages = this.allProfileImages.filter(img => !usedImages.includes(img));
@@ -102,6 +173,11 @@ export class PlayerBarComponent {
     return sourcePool[randomIndex];
   }
 
+  /**
+   * Generates the next unique player ID based on existing players.
+   *
+   * @returns A unique player ID.
+   */
   private generateNextPlayerId(): number {
     if (this.game.players.length === 0) {
       return 1;
@@ -109,10 +185,22 @@ export class PlayerBarComponent {
     return Math.max(...this.game.players.map(p => p.id ?? 0)) + 1;
   }
 
+  /**
+   * Determines if the new player should be set as active.
+   * The first player is always set to active.
+   *
+   * @returns True if the new player should be active, false otherwise.
+   */
   private shouldBeActive(): boolean {
     return this.game.players.length === 0;
   }
 
+  /**
+   * Removes the specified player from the game.
+   * If the removed player was active, the next player becomes active.
+   *
+   * @param playerToRemove - The player to remove.
+   */
   removePlayer(playerToRemove: Player): void {
     const wasActive = playerToRemove.isActive;
     this.game.players = this.game.players.filter(player => player !== playerToRemove);
@@ -122,11 +210,13 @@ export class PlayerBarComponent {
     this.firestoreService.updateGame(this.game, this.gameId);
   }
 
-  nextPlayer() {
-    this.firestoreService.game.currentPlayer = (this.firestoreService.game.currentPlayer + 1) % this.firestoreService.game.players.length;
+  /**
+   * Advances the active player index and updates the active state.
+   */
+  nextPlayer(): void {
+    this.firestoreService.game.currentPlayer =
+      (this.firestoreService.game.currentPlayer + 1) % this.firestoreService.game.players.length;
     this.firestoreService.game.updateActivePlayer();
   }
-  
-
-  
 }
+

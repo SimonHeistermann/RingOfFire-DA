@@ -5,6 +5,16 @@ import { Input } from '@angular/core';
 import { Game } from '../../../shared/models/game.model';
 import { Firestore } from '@angular/fire/firestore';
 
+/**
+ * A component that displays the title and description of the current game card.
+ * 
+ * The card content is determined by parsing the card input string and mapping it
+ * to a predefined list of actions with titles and descriptions.
+ * 
+ * Uses OnPush change detection strategy for performance optimization.
+ *
+ * @component
+ */
 @Component({
   selector: 'app-game-info',
   imports: [CommonModule, MatCardModule],
@@ -13,7 +23,9 @@ import { Firestore } from '@angular/fire/firestore';
   styleUrl: './game-info.component.sass'
 })
 export class GameInfoComponent implements OnChanges {
-
+  /**
+   * List of predefined card actions with titles and descriptions for the drinking game.
+   */
   cardAction = [
     {
       title: 'Waterfall',
@@ -69,25 +81,52 @@ export class GameInfoComponent implements OnChanges {
     }
   ];
 
+  /**
+   * Title of the current card, derived from the selected card.
+   */
   title: string = '';
+
+  /**
+   * Description of the current card, derived from the selected card.
+   */
   description: string = '';
-  @Input()card: string | null = null;
-  @Input()game!: Game;
 
+  /**
+   * The filename or identifier of the selected card (e.g., 'card_5.png').
+   * Triggers card info update when changed.
+   */
+  @Input() card: string | null = null;
 
+  /**
+   * The current game state object.
+   */
+  @Input() game!: Game;
+
+  /**
+   * Injects the Firestore instance for backend operations (e.g., logging, saving progress).
+   * 
+   * @param firestore - The Firestore service.
+   */
   constructor(private firestore: Firestore) {}
 
-  ngOnInit(): void {
-    if (this.card) this.updateCardInfo();
-  }
-  
+  /**
+   * Lifecycle hook that runs when component input properties change.
+   * If the card input changes, it updates the card title and description.
+   *
+   * @param changes - The changed input properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['card'] && this.card) {
       this.updateCardInfo();
     }
   }
-  
-  updateCardInfo() {
+
+  /**
+   * Updates the displayed title and description based on the current card input.
+   * Parses the card filename to extract the card number, which is used to index into the cardAction array.
+   * Includes a short delay to wait for animation or DOM update.
+   */
+  updateCardInfo(): void {
     setTimeout(() => {
       const rawCard = this.card!.split('_')[1];
       const cardNumber = parseInt(rawCard.split('.')[0], 10);
@@ -95,6 +134,5 @@ export class GameInfoComponent implements OnChanges {
       this.description = this.cardAction[cardNumber - 1]?.description ?? '';
     }, 500);
   }
-  
-  
 }
+
