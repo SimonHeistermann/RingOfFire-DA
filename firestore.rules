@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /games/{gameId} {
+      allow read: if true;    // Jeder kann lesen
+      allow create: if true;  // Jeder kann neue Spiele anlegen
+      allow update: if true;  // Jeder kann Spiele aktualisieren
+      allow delete: if false; // Niemand darf löschen
+    }
+  }
+}
+
