@@ -1,59 +1,81 @@
-# Ringoffire
+# Ring of Fire
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+> A real-time multiplayer card game web app — training project from Developer Akademie.
 
-## Development server
+## Disclaimer
 
-To start a local development server, run:
+This is a **training project** built as part of my education at [Developer Akademie](https://developerakademie.com/). It is not a commercial product and is not intended for real-world use. This is not a real gaming platform — no real services are provided. Do not enter real personal data.
+
+## About
+
+Ring of Fire is a digital implementation of the popular card drinking game. Players take turns drawing cards from a shuffled deck, with each card triggering a specific rule or action. The game state is synchronized in real-time across all connected clients using Firebase Firestore.
+
+This project demonstrates skills in Angular component architecture, real-time data synchronization, Material Design integration, and responsive web design.
+
+## Tech Stack
+
+- **Framework:** Angular 19 (standalone components)
+- **UI Library:** Angular Material 19
+- **Backend:** Firebase Firestore (real-time database)
+- **Styling:** SASS
+- **Language:** TypeScript
+- **Fonts:** Cinzel Decorative, Raleway, Roboto, Material Icons (all self-hosted)
+
+## Features
+
+- Create and join multiplayer game sessions via unique URLs
+- Draw cards from a shuffled 52-card deck with animations
+- Add, edit, and remove players with custom avatars
+- Real-time game state synchronization across clients
+- Game info panel showing current card rules
+- Game over detection with restart functionality
+- Responsive design for desktop and mobile
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- npm (included with Node.js)
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Installation
+
+```bash
+git clone https://github.com/simon-heistermann/ringoffire.git
+cd ringoffire
+npm install
+```
+
+### Running
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/` in your browser.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Building
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts are stored in the `dist/` directory.
 
-## Running unit tests
+## Legal
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- [Impressum / Legal Notice](/impressum)
+- [Privacy Policy](/privacy-policy)
+- [Disclaimer](/disclaimer)
 
-```bash
-ng test
-```
+## Author
 
-## Running end-to-end tests
+**Simon Maximilian Heistermann**
+- Website: [simon-heistermann.de](https://simon-heistermann.de)
+- Email: simon@heistermann-solutions.de
+- LinkedIn: [Simon Heistermann](https://www.linkedin.com/in/simon-heistermann/)
 
-For end-to-end (e2e) testing, run:
+## License
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is part of a training curriculum and is not licensed for commercial use.

@@ -1,0 +1,115 @@
+@use './../../../styles' as *
+
+.legal__page
+    min-height: 100vh
+    width: 100%
+    background-color: #1a0a0e
+    @include displayFlex(flex-start, center)
+    padding: 40px 20px 80px
+
+.legal__container
+    width: $standardWidth
+    max-width: 800px
+    background: rgba(53, 16, 30, 0.85)
+    border-radius: 12px
+    padding: 48px
+    color: #e8d5b5
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5)
+
+    @media (max-width: 768px)
+        padding: 24px 16px
+
+.legal__back
+    display: inline-flex
+    align-items: center
+    gap: 6px
+    color: #f7c948
+    text-decoration: none
+    font-family: 'Raleway', sans-serif
+    font-size: 14px
+    font-weight: 600
+    margin-bottom: 24px
+    transition: opacity 0.2s
+    cursor: pointer
+
+    &:hover
+        opacity: 0.8
+
+.legal__title
+    font-family: 'Cinzel Decorative', serif
+    font-size: clamp(24px, 4vw, 36px)
+    color: #f7c948
+    margin-bottom: 8px
+
+.legal__updated
+    font-family: 'Raleway', sans-serif
+    font-size: 13px
+    color: #b89a6a
+    margin-bottom: 32px
+
+.legal__section
+    margin-bottom: 28px
+
+    h2
+        font-family: 'Raleway', sans-serif
+        font-size: 20px
+        font-weight: 700
+        color: #f7c948
+        margin-bottom: 12px
+
+    h3
+        font-family: 'Raleway', sans-serif
+        font-size: 16px
+        font-weight: 600
+        color: #e8c97a
+        margin-bottom: 8px
+
+    p, li
+        font-family: 'Raleway', sans-serif
+        font-size: 15px
+        line-height: 1.7
+        color: #e8d5b5
+        margin-bottom: 8px
+
+    ul
+        padding-left: 20px
+
+    a
+        color: #f7c948
+        text-decoration: underline
+        transition: opacity 0.2s
+
+        &:hover
+            opacity: 0.8
+
+    table
+        width: 100%
+        border-collapse: collapse
+        margin: 12px 0
+
+        th, td
+            font-family: 'Raleway', sans-serif
+            font-size: 14px
+            padding: 10px 12px
+            border: 1px solid rgba(232, 213, 181, 0.2)
+            text-align: left
+
+        th
+            background: rgba(247, 201, 72, 0.1)
+            color: #f7c948
+            font-weight: 600
+
+        td
+            color: #e8d5b5
+
+    @media (max-width: 600px)
+        table
+            font-size: 12px
+
+            th, td
+                padding: 6px 8px
+
+.legal__divider
+    border: none
+    border-top: 1px solid rgba(232, 213, 181, 0.15)
+    margin: 24px 0
