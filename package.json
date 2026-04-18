@@ -44,6 +44,7 @@
   },
   "overrides": {
     "tar": "^7.5.11",
-    "serialize-javascript": "^7.0.4"
+    "serialize-javascript": "^7.0.4",
+    "protobufjs": ">=7.5.5"
   }
 }
